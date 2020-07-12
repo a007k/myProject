@@ -1,0 +1,122 @@
+{%extends "tnavbar.html"%}
+{% block content %}
+
+
+<br><br><br><br><br>
+           
+
+<div style="text-align: center; color: red;">
+  {% for message in messages%}
+   {{message}}
+   {% endfor %}
+  </div>
+
+
+<div class="container p-3 my-3 border " style="text-align: center;">
+  <h1> Upload Your File Here</h1>
+  <br>
+
+  <div class="container">
+   
+    <form class="form-inline" action="" method="POST" enctype="multipart/form-data" action="tfiles">
+      {% csrf_token %} 
+    <div class="input-group mb-2 mr-sm-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Upload</span>
+      </div>
+      <div class="custom-file">
+        <input type="file" name="img_logo" class="custom-file-input" id="inputGroupFile01">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+      </div>
+    </div>
+    
+  
+    <label class="sr-only" for="inlineFormInputGroupUsername2">File Name</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">$</div>
+      </div>
+      <input type="text" class="form-control" name="name" id="inputGroupFile02" placeholder="File name">
+    </div>
+  
+    <div class="form-check mb-2 mr-sm-2">
+      <input type="checkbox" class="form-check-input" id="autoSizingCheck" name="use_stages" value="1"> 
+      <label class="form-check-label" for="autoSizingCheck">
+        Hide
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Upload</button>
+  </form>
+  </div>
+  
+
+</div>
+
+
+
+<br><br><br><br><br>
+
+<h1 style="text-align: center;">ALL FILES</h1>
+
+<div class="container">
+  <div class="panel-body">
+    <div class="table-responsive">
+<table class="table table-bordered table-hover table-striped" style="text-align: center;">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">S No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Formate</th>
+      <th scope="col">Size</th>
+      <th scope="col">Update on</th>
+      <th scope="col">Hidden</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Download</th>
+    </tr>
+  </thead>
+  <tbody>
+ 
+     {% for file in files%}
+    <tr>
+      <th scope="row">{{ forloop.counter }}.</th>
+      <td>{{file.name}}</td>
+      <td>{{file.format}}</td>
+      <td>{{file.file_size|floatformat:2}}MB</td>
+      <td>{{file.time}}</td>
+      <td>
+        {% if file.hide %}
+            Yes
+            {%else%}
+            No
+            {%endif%}
+      </td>
+      <td>
+        <a class="btn btn-outline-dark" href="files/delete/{{file.id}}">Delete</a>   
+      </td>
+      <td>
+          <a class="btn btn-outline-danger" href="{{file.files.url}}" download="{{file.files}}">Download</a>
+      </td>
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<script type="application/javascript">
+  $('input[type="file"]').change(function(e){
+      var fileName = e.target.files[0].name;
+      $('.custom-file-label').html(fileName);
+  });
+</script>
+    </body>
+    </html>
+       
+{% endblock %}
+
+
+
+
+
+  

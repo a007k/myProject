@@ -1,0 +1,51 @@
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html>
+<title>security and effective file sharing</title>
+
+<style>
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+ 
+  min-height: 75%;
+}
+
+.menu {
+  display: none;
+}
+</style>
+<body>
+
+<!-- Links (sit on top) -->
+
+{% include 'unavbar.html'%}
+<!-- Header with image -->
+
+
+<header class="bgimg w3-display-container w3-grayscale-min" id="home" style="background-image:url({% static 'images/user_home1.jpg'%});">
+
+</header>
+
+<div class="container p-3 my-3 bg-dark text-white">
+  <h1>ABOUT THE SECURITY OF FELGO.</h1>
+  <h2>(Two Authentication Factors that Help Ensure Secure File Sharing.)</h2>
+</div>
+
+<div class="container p-3 my-3 border">
+ 
+  <p>Verifying that someone is who they say they are is essential for keeping your company’s data safe. In the past, a single, unique password might have been enough protection to keep potential digital thieves at bay, but hackers’ methods have become more sophisticated with each passing today.</p><br>
+  <p>So, what can you do to maintain the wall of security around your data?</p><br>
+  <p>Authentication is a way to verify the person attempting to access your FTP server and the data stored within it is actually who they say they are. If your business deals with sensitive data, strict authentication measures are imperative for keeping data out of the wrong hands. And, ineffective authentication can have an impact on compliance, too.</p>
+  
+</div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'tnavbar.html'%}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html>
+<title>security and effective file sharing</title>
+
+
+<body>
+
+<!-- Links (sit on top) -->
+<br>
+<br>
+<br><br><br><br>
+
+<h1 style="text-align: center;"> List of All Users</h1>
+<br><br>
+<div class="container">
+  <div class="panel-body">
+    <div class="table-responsive">
+<table class="table table-bordered table-hover table-striped" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S No.</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Username</th>
+      <th scope="col">Working as a</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users%}
+    <tr  onclick="location.href='profile/{{user.id}}'">
+      <th scope="row">{{ forloop.counter }}.</th>
+      <td> <img  style=" border-radius: 50%; height:60px ; width: 60px;" src="{{user.image.url}}" alt="Avatar"> </td>
+      <td>{{user.first_name}}  {{user.last_name}}</td>
+      <td>{{user.username}}</td>
+ 
+      <td>               
+         {% if user.is_authority %}
+            Authority
+              {% elif user.is_trustee %}
+            Trustee
+             {% else %}
+          User
+             {%endif%}
+        </td>
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+{% endblock %}

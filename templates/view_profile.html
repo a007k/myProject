@@ -1,0 +1,92 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="img/favicon.png" type="image/png">
+        <title>User Profile</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'v_prof/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'v_prof/vendors/linericon/style.css' %}">
+        <link rel="stylesheet" href="{% static 'v_prof/css/font-awesome.min.css' %}">
+       
+        <!-- main css -->
+        <link rel="stylesheet" href="{% static 'v_prof/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'v_prof/css/responsive.css' %}">
+        <style>
+                .btn-group .button {
+              background-color: rgb(36, 127, 170); /* Green */
+              border: none;
+              color: white;
+              padding: 5px 50px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              cursor: pointer;
+              border-radius: 8px;
+              
+            }
+            
+            .btn-group .button:hover {
+              background-color: rgb(148, 7, 2);
+            }
+              </style>
+    </head>
+    <body>
+        
+       
+        <!--================Header Menu Area =================-->
+        
+        <!--================Home Banner Area =================-->
+        <section class="home_banner_area">
+                  <div style="text-align: center;">
+                    {% for message in messages%}
+                    <font color="red" style="font-size:30;"> {{message}} </font>
+                     {% endfor %}
+                  </div>
+           	<div class="container box_1620">
+           		<div class="banner_inner d-flex align-items-center">
+					<div class="banner_content">
+						<div class="media">
+							<div class="d-flex">
+                                <img src="{{user.image.url}}" alt="" width="550px" height="650px"> 
+							</div>
+							<div class="media-body">
+								<div class="personal_text">
+                                    <p>Last seen: {{user.last_login}}</p>
+									<h6>Hello Everybody, This is </h6>
+                                    <h3>{{user.first_name}} {{user.last_name}}</h3>
+                                    {% if user.is_authority %}
+                                    <h4>Authority</h4>
+                                    {% elif user.is_trustee %}
+                                    <h4>Trustee</h4>
+                                    {% else %}
+                                    <h4>Normal User</h4>
+                                    {% endif %}
+									<p>{{user.about}}</p>
+									<ul class="list basic_info">
+										
+										<li><a href=""><i class="lnr lnr-user"></i> {{user.username}}</a></li>
+                                        <li><a href=""><i class="lnr lnr-envelope"></i>{{user.email}}</a></li>
+                                        <li><a href=""><i class="lnr lnr-calendar-full"></i>{{user.date_joined}}</a></li>
+									</ul>
+                                    <p style="padding-top: 40px; text-align: center;">Number of Accessible file </p>
+                                    <p style="text-align: center;">{{user.no_file}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </section>
+        <div style="text-align: center; padding-top: 10px;padding-bottom: 200px;">
+        <div class="btn-group" style="padding-top: 3px;">    
+            <a href="delete/{{user.id}}" class="button" style="text-decoration: none">Delete </a>
+          </div>
+          
+         </div>
+    </body>
+</html>

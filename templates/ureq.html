@@ -1,0 +1,107 @@
+{%extends "unavbar.html"%}
+{% load static %}
+{% block content%}
+<br>
+<br><br>
+
+{% if requests|length > 0 %}
+<h1 style="text-align: center;"> Requested To Trustee</h1>
+<br>
+<div class="container">
+  <div class="panel-body">
+    <div class="table-responsive">
+
+<table class="table table-bordered table-hover table-striped" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S No.</th>
+      <th scope="col">File Nmae</th>
+      <th scope="col">Formate</th>
+      <th scope="col">Size</th>
+      <th scope="col">Requested on</th>
+      <th scope="col">Last update</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody >
+    {% for request in requests%}
+    {% if not request.files.hide %}
+    <tr>
+      <td class="x">{{ forloop.counter }}</td>
+      <td class="x">{{request.files.name}}</td>
+      <td class="x">{{request.files.format}}</td>
+      <td class="x">{{request.files.file_size|floatformat:2}}MB</td>
+      <td class="x">{{request.timestamp}}</td>
+      <td class="x">{{request.update_on}}</td>
+      <td class="x">
+        <div class="x" >
+          <a href="trequest/delete/{{request.id}}" class="btn btn-outline-dark" style="text-decoration: none">Delete</a>        
+        </div>
+      </td>
+
+      <td class="x">
+        <div class="container" >
+          
+            
+            {% if request.tstatus == "Pending" %}
+            <a href="" class="btn" style="text-decoration: none;background: rgb(168, 63, 36);">Pending</a>
+            {% elif request.tstatus == "Accesed" %}
+            <a href="" class="btn" style="text-decoration: none ;background: rgb(64, 100, 48);">Accesed</a>
+            {% endif %}
+        </div>
+      </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    
+   
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>
+{% endif%}
+<br><br><br><br><br><br><br>
+<h1 style="text-align: center;"> All Files</h1>
+<br>
+<div class="container">
+  <div class="panel-body">
+    <div class="table-responsive">
+<table class="table table-bordered table-hover table-striped" style="text-align: center;">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">S No.</th>
+      <th scope="col">File Nmae</th>
+      <th scope="col">Formate</th>
+      <th scope="col">Size</th>
+      <th scope="col">Last Upadate</th>
+      <th scope="row">Request</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for file in files%}
+    <tr class="x">
+    
+      <td >{{ forloop.counter }}</td>
+      <td >{{file.name}}</td>
+      <td >{{file.format}}</td>
+      <td >{{file.file_size|floatformat:2}}MB</td>
+      <td >{{file.update_on}}</td>
+      <td >
+        <div class="container" >
+            <a href="trequest/{{file.id}}" class="btn btn-outline-dark" style="text-decoration: none">Request</a>             
+        </div>
+      </td>
+   </tr>
+   {% endfor %}
+    
+  </tbody>
+</table>
+</div>
+  </div>
+</div>
+</body>
+</html>
+{%endblock%}

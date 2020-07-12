@@ -1,0 +1,111 @@
+{%extends "unavbar.html"%}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+ 
+  <style>
+    .btn-group .button {
+  background-color: rgb(36, 127, 170); /* Green */
+  border: none;
+  color: white;
+  padding: 4px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  
+}
+
+.btn-group .button:hover {
+  background-color: rgb(12, 75, 104);
+}
+  </style>
+</head>
+  
+
+<body>
+  
+<br><br><br><br>
+
+<h1 style="text-align: center;"> Downloads </h1>
+<br>
+<div class="container">
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped" style="text-align: center;">
+          <thead>
+              <tr>
+                   <th class="col-md-1">S No.</th>
+                   <th class="col-md-1">File Name</th>
+                   <th class="col-md-1">Formate</th>
+                   <th class="col-md-1">Size</th>
+                   <th class="col-md-1">Request Date</th>
+                   <th class="col-md-1">Acess Date</th>  
+                   <th class="col-md-2">Download</th>
+                   
+              </tr>
+          </thead>
+          <tbody>
+
+            {% for file in access %}
+              <tr>
+                <td >{{ forloop.counter }}.</td>
+                <th scope="row">{{file.files.name}}</th>
+                <td data-title="Studio">{{file.files.format}}</td>
+                <td data-title="Released">{{file.files.file_size|floatformat:2}}MB</td>      
+                <td data-title="Worldwide Gross" data-type="currency">{{file.timestamp}}</td>
+                <td data-title="Domestic Gross" data-type="currency">{{file.timestamp}}</td>
+                <td data-title="Budget" data-type="currency">
+                <!--  <script>
+                      function myFunction(file) {
+                      var txt;
+                      var key = prompt("Please enter secret key:", "**********");
+                      var s_key="{{file.s_key}}";
+                      if ( s_key!="a"&&key == s_key) {
+                        txt = "Download";
+                        document.getElementById("download").innerHTML = txt;
+                      } else {
+                        txt = "worong Key";
+                        document.getElementById("demo").innerHTML = txt;
+                      }
+                    }
+                    </script>
+                  <a href="" onclick='myFunction();  return false;'>click here </a>
+                  <p id="demo"></p>
+                  <a id="download" href="{{file.files.files.url}}" download="{{file.files.files}}"></a> 
+                  -->
+                  {% if file.dnld == "False" %}
+                  <form method="POST" action="key_submit/{{file.id}}">
+                    {% csrf_token %}
+                  <div class="col-xs-2" style="text-align: center;">
+                    <input class="form-control" id="ex1" name="key" type="text" placeholder="secrte key">
+                    <div class="btn-group" style="padding-top: 3px;">    
+                      <button class="button">Button</button>
+                    </div>
+                  </div>
+                  </form>
+                  {% elif file.dnld == "True" %}
+                  <div class="btn-group" style="text-align:center;">
+                  <a href="{{file.files.files.url}}" download="{{file.files.files}}" class="button" style="text-align: center;"> Download </a>
+                  </div>
+                  {% endif %}
+                  
+                </td>
+                 
+              </tr>
+              {%endfor%}
+             
+          </tbody>
+      </table>
+     </div>
+  </div>
+  </div>
+
+</body>
+</html>
+{%endblock%}

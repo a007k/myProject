@@ -1,0 +1,89 @@
+{%extends "tnavbar.html"%}
+{% block content%}
+{% load static%}
+
+<style>
+  button .comment { display: none; }
+button:hover .replies { display: none; }
+button:hover .comment { display: inline; }
+</style>
+
+<br><br><br><br>
+
+<h1 style="text-align: center;"> Notifications</h1>
+<div class="container">
+  <div class="panel-body">
+    <div class="table-responsive">
+<table class="table table-bordered table-hover table-striped" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S No.</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Username</th>
+      <th scope="col">File Name</th>
+      <th scope="col">Formate</th>
+      <th scope="col">Size</th>
+      <th scope="col">Requested on</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Allow</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for req in requestall %}
+    <tr >
+      <th scope="row">{{ forloop.counter }}.</th>
+      <td> <img  style=" border-radius: 50%; height:60px ; width: 60px;" src="{{req.user.image.url}}" alt="Avatar"> </td>
+      <td>{{req.user.first_name}}  {{req.user.last_name}}</td>
+      <td>{{req.user.username}}</td>
+      <td>{{req.files.name}}</td>
+      <td>{{req.files.file_size|floatformat:2}}MB</td>
+      <td>{{req.files.file_size|floatformat:2}}MB</td>
+      <td>{{req.timestamp}}</td>
+      <td>
+    <a href="notifications/delete/{{req.id}}" class="btn btn-outline-dark" style="text-decoration: none">Delete </a>
+      </td>
+      <td>
+        {% if val == 1 %}     
+        
+          {% if req.astatus == "Pending" %}  
+     
+        <button class="btn">        
+          <span class="replies"><a href="notifications/{{req.id}}" class="btn btn-danger" >Pending</a> </span>
+          <span class="comment"><a href="notifications/{{req.id}}" class="btn btn-success" >Allow</a> </span>
+     </button>
+          {% else%}
+          <button class="byn">
+          <span class="replies"><a href="notifications/{{req.id}}" class="btn btn-success" >Allowed</a> </span>
+          <span class="comment"><a href="notifications/{{req.id}}" class="btn btn-danger" >Stop</a> </span> 
+        </button>
+          {%endif%}  
+          
+        {% elif val == 0 %}
+        
+          {% if req.tstatus == "Pending" %}
+          <button class="btn">      
+          <span class="replies"><a href="notifications/{{req.id}}" class="btn btn-danger" >Pending</a> </span>
+          <span class="comment"><a href="notifications/{{req.id}}" class="btn btn-success" >Allow</a> </span>
+          </button>
+          {% else%}
+          <button class="btn">
+          <span class="replies"><a href="notifications/{{req.id}}" class="btn btn-success" >Allowed</a> </span>
+          <span class="comment"><a href="notifications/{{req.id}}" class="btn btn-danger" >Stop</a> </span> 
+          </button>
+          {%endif%}  
+       
+              {% endif %}
+      
+      </td>
+    {% endfor %}
+    
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock %}
