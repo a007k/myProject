@@ -1,8 +1,7 @@
 # Secure and Effective File sharing Using two fector authentication.
 
 ## user view
-- User will first login to his window after registration
-- in the files section and then he will be able to see some files uploaded by trustee/authority but he will not be able to download those files.to download those file user have to first send a request to trustee for that particular file and after getting allowed by trustee he have to send again a request to the authority and when authority will allow him, he will get a secret key on his registered email and by verifying that key he will be abe to download that file.and after logout he will lose his access.
+- User will first login to his window after registration and then he will be able to see some files uploaded by trustee/authority but he will not be able to download those files.to download those file user have to first send a request to trustee for that particular file and after getting allowed by trustee he have to send again a request to the authority and when authority will allow him, he will get a secret key on his registered email and by verifying that key he will be abe to download that file.and after logout he will lose his access.
 
 
 ![combine_images](https://user-images.githubusercontent.com/44670618/87851485-cc2a2900-c916-11ea-86a1-0c2322313092.jpg)
